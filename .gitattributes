@@ -1,0 +1,50 @@
+# 换行策略：文本文件入库统一为 LF，工作区换行由 core.autocrlf 决定
+#   - Windows（core.autocrlf=true）：checkout 时 LF -> CRLF，add 时 CRLF -> LF
+#   - Linux/macOS（core.autocrlf 默认 false）：工作区保持 LF
+# 本文件只声明哪些是文本/二进制，不在此强制工作区 eol，避免与 autocrlf 冲突
+
+# 默认：Git 自动识别文本/二进制，文本入库统一为 LF
+* text=auto
+
+# 代码与配置文件（本项目主要类型）
+*.ts          text
+*.tsx         text
+*.js          text
+*.mjs         text
+*.mts         text
+*.cjs         text
+*.vue         text
+*.css         text
+*.scss        text
+*.json        text
+*.prisma      text
+*.sql         text
+*.md          text
+*.yaml        text
+*.yml         text
+*.toml        text
+*.txt         text
+*.example     text
+*ignore       text
+.editorconfig text
+.gitattributes text
+
+# 无扩展名的脚本/钩子（如 .husky/pre-commit）
+/.husky/**    text
+
+# Windows 平台脚本保留 CRLF
+*.bat         text eol=crlf
+*.cmd         text eol=crlf
+*.ps1         text eol=crlf
+
+# 二进制文件（显式声明，防止被 text=auto 误判）
+*.png         binary
+*.jpg         binary
+*.jpeg        binary
+*.gif         binary
+*.webm        binary
+*.mp4         binary
+*.ico         binary
+*.docx        binary
+*.pdf         binary
+*.zip         binary
