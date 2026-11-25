@@ -9,9 +9,19 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
-    "typecheck": "nuxt typecheck"
+    "typecheck": "nuxt typecheck",
+    "sdd:verify": "tsx scripts/verify.ts",
+    "sdd:pre-archive": "tsx scripts/pre-archive.ts",
+    "sdd:coverage": "tsx scripts/coverage-report.ts",
+    "sdd:list": "openspec list",
+    "sdd:archive": "openspec archive",
+    "sdd:status": "openspec status --all",
+    "sdd:list:specs": "openspec list --specs",
+    "sdd:validate": "openspec validate --all --strict"
   },
   "dependencies": {
+    "@fontsource/cormorant-garamond": "5.0.0",
+    "@fontsource/noto-serif-sc": "5.1.0",
     "@iconify-json/lucide": "^1.2.147",
     "@iconify-json/simple-icons": "^1.2.100",
     "@nuxt/ui": "^4.12.0",
@@ -19,9 +29,11 @@
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
+    "@fission-ai/openspec": "^2.1.1",
     "@nuxt/eslint": "^1.17.0",
     "eslint": "^10.13.0",
     "eslint-plugin-better-tailwindcss": "^4.10.0",
+    "tsx": "^4.23.15",
     "typescript": "^6.0.3",
     "vue-tsc": "^3.3.13"
   },

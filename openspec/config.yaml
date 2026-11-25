@@ -1,0 +1,64 @@
+schema: spec-driven
+
+# Project context (optional)
+# Add only constraints that should guide OpenSpec artifacts and workflows.
+# Include constraints an agent cannot infer by reading the code.
+# Keep general project documentation and discoverable codebase facts out.
+context: |
+  ## 站点
+  - 中国女性主题站点，品牌名「众芳图」（副名「众芳图志」，slogan「不以无人而不芳」），定位为「人物志 × 慢关系」：内容可读 → 双向可通 → 在地可见。
+  - 设计基线是 docs/00-众芳图设计指南.md；品牌、栏目、机制、色彩、文案规范均以其定案为准，冲突时以该文档为准。
+  - 现有代码仍是旧的单人作品集概念稿（品牌「未央」、暗色胭脂、单人作品数组），与基线存在系统性偏差，属待改造状态，不得据其反推产品语义。
+  - 面向中国大陆中文用户：界面文案、标注文案用简体中文；代码标识符、配置键、技术文档用英文。
+
+  ## 语义红线（不可由代码推断，必须逐条遵守）
+  - 主语在她：不得出现被凝视、被代言、被动等待的表达；文案用第一人称、现在时、主动语态。
+  - 禁用「失 / 怨 / 恨 / 闺 / 媚 / 残 / 瘦」字根，以及「失乐园」「妖冶」「sultry」「纯欲」类语感。
+  - 禁用滑动匹配、颜值排序、热度榜、点赞总数、粉丝数、在线状态、附近的人、付费解锁聊天、算法配对。
+  - 地域不按 34 省平铺，按 8–12 个文化地理大区组织；条目不得变成地域选美或座次排序。
+  - 不做婚介撮合、不收费介绍、不存精确位置、不用 AI 生成人物或自述。
+
+  ## 技术栈
+  - Nuxt 4（ssr: true）+ Vue 3 + TypeScript，包管理器 pnpm 12。
+  - 样式：Tailwind CSS v4 + @nuxt/ui v4；设计令牌与所有全局样式集中在 app/assets/css/main.css。
+  - 字体：@fontsource 自托管 Noto Serif SC 与 Cormorant Garamond。禁止改回 Google Fonts 或任何外部字体 CDN。
+  - 图标：Iconify（lucide、simple-icons），客户端打包。
+
+  ## 构建与部署
+  - 部署到 GitHub Pages，仓库 wangwii/wyg，站点路径 https://wangwii.github.io/wyg/。
+  - app.baseURL 固定为 /wyg/，新增资源引用、路由与绝对路径都必须兼容该前缀。
+  - Nitro preset 为 github_pages，产物为纯静态；不得引入仅能运行在 Node 服务端的依赖。
+  - 无自建服务端：关系层（投书、回信、题跋、可见性设置）不得假设有 API 或数据库；如需实现，走第三方服务或邮件降级，并在变更提案中写明方案与成本。
+  - 开发端口固定 8080（devServer.port）；首页通过 prerender 预渲染。
+  - 交付门槛：pnpm lint、pnpm typecheck、pnpm generate 三步全部通过。
+
+  ## 视觉基调
+  - 纸绢温润明亮：纸 #F7F3E9、墨 #2A2622、黛 #3B4A54、天青 #7FA3A6、藕荷 #C9A7B6、缃 #E8D9A8、朱砂 #B93B34。
+  - 朱砂是唯一高饱和色，只用于题名、印章、主按钮，面积约 2%；中文衬线正文，英文与数字用 Cormorant Garamond。
+  - 禁止暗场烛光、闺阁静物（折扇 / 铜镜 / 胭脂 / 帐幔）、照片墙、网格头像流、半剪影与「回眸」镜头。
+  - 动效必须提供 prefers-reduced-motion 降级；移动端断点为 639px / 640px。
+
+# Per-artifact rules (optional)
+rules:
+  proposal:
+    - 说明变更对 GitHub Pages 静态导出与 /wyg/ 子路径的影响
+    - 若引入新依赖，说明它能否在纯静态产物中运行，并给出体积代价
+  specs:
+    - 每条验收标准都要覆盖 1440px 桌面与 390px 移动两种宽度
+    - 涉及视觉的验收标准必须包含 prefers-reduced-motion 下的表现
+  design:
+    - 优先复用 app/assets/css/main.css 中已有的 CSS 变量与组件类，不新增硬编码颜色
+  tasks:
+    - 每个任务标注涉及的文件路径
+    - 最后一个任务固定为执行 pnpm lint、pnpm typecheck、pnpm generate 并记录结果
+
+# Per-operation guidance (optional)
+operations:
+  apply:
+    guidance:
+      - 改完代码在项目根目录依次执行 pnpm lint、pnpm typecheck、pnpm generate，任一失败即未完成
+      - 不要启动长期运行的 dev server 作为验证手段，静态产物检查以 generate 为准
+  archive:
+    guidance:
+      - 归档说明中记录实际执行的校验命令与结果
+      - 若变更改动了品牌文案或 SEO 元信息，列出改动过的文件清单

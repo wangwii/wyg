@@ -17,6 +17,11 @@ logs
 .DS_Store
 .fleet
 .idea
+.codebuddy
+
+# Agent/IDE 本地配置
+.agents/
+.trae/
 
 # Local env files
 .env

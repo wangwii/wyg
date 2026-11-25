@@ -17,8 +17,17 @@ export default defineNuxtConfig({
 
   css: ['~/assets/css/main.css'],
 
+  ui: {
+    fonts: false,
+    colorMode: false
+  },
+
   routeRules: {
     '/': { prerender: true }
+  },
+
+  devServer: {
+    port: 8080
   },
 
   compatibilityDate: '2026-06-30',

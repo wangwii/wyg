@@ -14,6 +14,11 @@ export default withNuxt(
           ['^v-bind:ui$', [{ match: 'objectValues' }]]
         ]
       }
+    },
+    rules: {
+      'better-tailwindcss/no-unknown-classes': ['error', {
+        detectComponentClasses: true
+      }]
     }
   }
 )

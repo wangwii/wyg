@@ -22,6 +22,9 @@
 *.md          text
 *.yaml        text
 *.yml         text
+
+# pnpm 生成的 lockfile 固定为 LF，避免每次 install 后反复产生换行差异
+pnpm-lock.yaml text eol=lf
 *.toml        text
 *.txt         text
 *.example     text
